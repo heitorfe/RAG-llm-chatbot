@@ -9,13 +9,13 @@
             "value": "centralus"
         },
         "deployAItools": {
-            "value": true
+            "value": false
         },
         "deployCrawler": {
             "value": true
         },
         "deployRoleAssignments": {
-            "value": true
+            "value": false
         }
     }
 }

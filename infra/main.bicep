@@ -26,6 +26,9 @@ module functionApp 'modules/repo_crawler_function.bicep' =  if (deployCrawler) {
     location: location
     env: env
   }
+  dependsOn: [
+    storage
+  ]
 }
 
 
