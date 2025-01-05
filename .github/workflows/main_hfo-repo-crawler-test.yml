@@ -59,7 +59,7 @@ jobs:
           name: python-app
 
       - name: Unzip artifact for deployment
-        run: unzip release.zip  -d extracted/
+        run: unzip release.zip
         
       - name: 'Deploy to Azure Functions'
         uses: Azure/functions-action@v1
@@ -67,5 +67,5 @@ jobs:
         with:
           app-name: 'hfo-repo-crawler-test'
           slot-name: 'Production'
-          package: ./extracted
+          package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DCD828CFEC0B41AD838856F606530675 }}
