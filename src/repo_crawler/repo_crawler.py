@@ -1,71 +1,64 @@
 import os
 import requests
-from azure.storage.blob import BlobServiceClient, BlobClient, ContainerClient
+from azure.storage.blob import BlobServiceClient, ContainerClient
 from dotenv import load_dotenv
 from typing import List
 
 load_dotenv()
 
-# Configurações
-REPO = 'MicrosoftDocs/azure-docs'
-GITHUB_REPO_URL = f"https://github.com/{REPO}"
-AZURE_STORAGE_CONNECTION_STRING = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
-CONTAINER_NAME = "public"
-GITHUB_API_URL = f"https://api.github.com/repos/{REPO}/contents/"
-HEADERS = {'Accept': 'application/vnd.github.v3+json'}
-FOLDERS_TO_DOWNLOAD = ["articles/azure-functions/scripts", "includes"]
+class RepoCrawler:
+    def __init__(self, repo_name: str, container: str, include_dirs: List[str]):
+        self.repo_name = repo_name
+        self.container = container
+        self.include_dirs = include_dirs
+        self.github_repo_url = f"https://github.com/{self.repo_name}"
+        self.azure_storage_connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
+        self.github_api_url = f"https://api.github.com/repos/{self.repo_name}/contents/"
+        self.headers = {'Accept': 'application/vnd.github.v3+json'}
+        self.blob_service_client = BlobServiceClient.from_connection_string(self.azure_storage_connection_string)
+        self.container_client = self.blob_service_client.get_container_client(self.container)
 
-def download_folder_from_github(folder_path: str, container_client: ContainerClient) -> None:
-    """
-    Downloads a folder from GitHub and uploads its contents to Azure Blob Storage.
+    def download_folder_from_github(self, folder_path: str) -> None:
+        """
+        Downloads a folder from GitHub and uploads its contents to Azure Blob Storage.
 
-    :param folder_path: The path of the folder in the GitHub repository.
-    :param container_client: The Azure Blob Storage container client.
-    """
-    url = GITHUB_API_URL + folder_path
-    response = requests.get(url, headers=HEADERS)
-    response.raise_for_status()
-    contents = response.json()
+        :param folder_path: The path of the folder in the GitHub repository.
+        """
+        url = self.github_api_url + folder_path
+        response = requests.get(url, headers=self.headers)
+        response.raise_for_status()
+        contents = response.json()
 
-    for item in contents:
-        if item['type'] == 'file':
-            download_file_from_github(item['download_url'], f"{REPO}/{item['path']}", container_client)
-        elif item['type'] == 'dir':
-            download_folder_from_github(item['path'], container_client)
+        for item in contents:
+            if item['type'] == 'file':
+                self.download_file_from_github(item['download_url'], f"{self.repo_name}/{item['path']}")
+            elif item['type'] == 'dir':
+                self.download_folder_from_github(item['path'])
 
-def download_file_from_github(file_url: str, blob_path: str, container_client: ContainerClient) -> None:
-    """
-    Downloads a file from GitHub and uploads it to Azure Blob Storage.
+    def download_file_from_github(self, file_url: str, blob_path: str) -> None:
+        """
+        Downloads a file from GitHub and uploads it to Azure Blob Storage.
 
-    :param file_url: The URL of the file in the GitHub repository.
-    :param blob_path: The path of the file in the Azure Blob Storage container.
-    :param container_client: The Azure Blob Storage container client.
-    """
+        :param file_url: The URL of the file in the GitHub repository.
+        :param blob_path: The path of the file in the Azure Blob Storage container.
+        """
+        response = requests.get(file_url)
+        response.raise_for_status()
 
-    response = requests.get(file_url)
-    response.raise_for_status()
+        blob_client = self.container_client.get_blob_client(blob_path)
+        blob_client.upload_blob(response.content, overwrite=True)
+        print(f"Uploaded {file_url} to {blob_path}")
 
-    blob_client = container_client.get_blob_client(blob_path)
-    blob_client.upload_blob(response.content, overwrite=True)
-    print(f"Uploaded {file_url} to {blob_path}")
+    def run(self) -> None:
+        """
+        Main function to download specific folders from GitHub and upload them to Azure Blob Storage.
+        """
+        # Create the container if it doesn't exist
+        try:
+            self.container_client.create_container()
+        except Exception as e:
+            print(f"Container already exists: {e}")
 
-def main() -> None:
-    """
-    Main function to download specific folders from GitHub and upload them to Azure Blob Storage.
-    """
-    # Conectar ao Azure Blob Storage
-    blob_service_client = BlobServiceClient.from_connection_string(AZURE_STORAGE_CONNECTION_STRING)
-    container_client = blob_service_client.get_container_client(CONTAINER_NAME)
-
-    # Criar o container se não existir
-    try:
-        container_client.create_container()
-    except Exception as e:
-        print(f"Container already exists: {e}")
-
-    # Baixar pastas específicas do GitHub e fazer upload para o Azure Blob Storage
-    for folder in FOLDERS_TO_DOWNLOAD:
-        download_folder_from_github(folder, container_client)
-
-if __name__ == "__main__":
-    main()
+        # Download specific folders from GitHub and upload them to Azure Blob Storage
+        for folder in self.include_dirs:
+            self.download_folder_from_github(folder)
