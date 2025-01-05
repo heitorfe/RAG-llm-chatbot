@@ -26,6 +26,7 @@ O projeto está dividido em duas partes principais:
 ### Pré-requisitos
 
 - Azure CLI instalado
+- Cinhecimento básico em Azure Functions e nas ferramentas de IA do Azure
 - Conta no Azure com permissões para criar recursos
 - Python 3.11 instalado
 
@@ -49,12 +50,41 @@ O projeto está dividido em duas partes principais:
     ./infra/config/fill_env.sh <ResourceGroup>
     ```
 
-5. Crie um ambiente virtual Python e instale as dependências:
-    ```sh
-    python -m venv venv
-    source venv/bin/activate
-    pip install -r src/repo_crawler/requirements.txt
-    ```
+5. O Crawler é uma Azure Functions configurada para ser executada diariamente. Faça o deploy usando a extensão do VS Code ou o CI/CD configurado no GitHub e configure as variáveis de ambiente.
+
+### Variáveis de Ambiente
+
+As variáveis de ambiente são utilizadas para configurar a Azure Function com os parâmetros necessários para sua execução. As seguintes variáveis de ambiente devem ser configuradas:
+
+- `AzureWebJobsStorage`: String de conexão para o Azure Blob Storage.
+- `FUNCTIONS_WORKER_RUNTIME`: Define o runtime da função, neste caso, "python".
+- `GITHUB_REPO`: Repositório do GitHub que contém a documentação do Azure.
+- `AZURE_STORAGE_CONTAINER`: Nome do container no Azure Blob Storage onde os dados serão armazenados.
+- `FOLDERS_TO_INCLUDE`: Pastas do repositório do GitHub que serão incluídas na ingestão de dados.
+- `DAYS_AGO`: Número de dias para considerar na ingestão de dados.
+
+### Configuração das Variáveis de Ambiente
+
+1. No portal do Azure, navegue até a Azure Function que você criou.
+2. No menu lateral, selecione "Configurações de Aplicativo" (Application Settings).
+3. Adicione cada uma das variáveis de ambiente listadas acima com seus respectivos valores.
+4. Salve as configurações e reinicie a Azure Function para que as novas configurações sejam aplicadas.
+
+Exemplo de configuração no arquivo `local.settings.json`:
+
+```json
+{
+    "IsEncrypted": false,
+    "Values": {
+        "AzureWebJobsStorage": "<sua-string-de-conexao>",
+        "FUNCTIONS_WORKER_RUNTIME": "python",
+        "GITHUB_REPO": "MicrosoftDocs/azure-docs",
+        "AZURE_STORAGE_CONTAINER": "public",
+        "FOLDERS_TO_INCLUDE": "['articles/azure-functions', 'includes']",
+        "DAYS_AGO": "3"
+    }
+}
+```
 
 6. Execute o script Python para configurar o AI Search:
     ```sh
