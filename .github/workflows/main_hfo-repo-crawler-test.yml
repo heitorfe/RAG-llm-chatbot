@@ -32,12 +32,12 @@ jobs:
           source venv/bin/activate
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r src/repo_crawler/requirements.txt
 
       # Optional: Add step to run tests here
 
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+        run: zip release.zip ./src/repo_crawler/* -r
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4

@@ -66,5 +66,22 @@ resource functionApp 'Microsoft.Web/sites@2022-03-01' = {
   }
 }
 
+resource deploymentCenter 'Microsoft.Web/sites/sourcecontrols@2022-03-01' = {
+  parent: functionApp
+  name: 'web'
+  properties: {
+    repoUrl: 'https://github.com/heitorfe/RAG-llm-chatbot'
+    branch: 'main'
+    isManualIntegration: false
+    isGitHubAction: true
+    deploymentRollbackEnabled: true
+    isMercurial: false
+    gitHubActionConfiguration: {
+      generateWorkflowFile: true
+      isLinux: true
+    }
+  }
+}
+
 output functionAppName string = functionApp.name
 // output functionAppid string = functionApp.identity.principalId
