@@ -1,10 +1,9 @@
 # Projeto de Ingestão de Dados e Implementação de IA no Azure
-
-Este projeto tem como objetivo criar um crawler para ingestão de dados da documentação do Azure e implementar recursos de IA no Azure utilizando Infraestrutura como Código (IaC) e Python.
+Este projeto visa criar um crawler para ingestão de dados da documentação do Azure e implementar recursos de IA no Azure utilizando Infraestrutura como Código (IaC) e Python.
 
 ## Objetivo do Projeto
 
-O objetivo deste projeto é automatizar a ingestão de dados de repositórios do GitHub, especificamente da documentação do Azure, e armazená-los no Azure Blob Storage. Além disso, o projeto implementa recursos de IA no Azure, como Azure Cognitive Search e Azure OpenAI, para processar e analisar os dados ingeridos.
+Automatizar a ingestão de dados de repositórios do GitHub, especificamente da documentação do Azure, e armazená-los no Azure Blob Storage. Além disso, implementar recursos de IA no Azure, como Azure Cognitive Search e Azure OpenAI, para processar e analisar os dados ingeridos.
 
 ## Estrutura do Projeto
 
@@ -67,3 +66,31 @@ O projeto está dividido em duas partes principais:
 ## Contribuição
 
 Sinta-se à vontade para contribuir com este projeto. Para isso, faça um fork do repositório, crie uma branch para suas alterações e envie um pull request.
+
+## Implementação do Chatbot
+
+Após implantar todos os recursos, use o Azure AI Foundry para criar um agente especializado no domínio do índice (neste caso, Azure). Configure o contexto para delimitar como e o que ele deve responder. Faça o deploy em um App Service pelo próprio playground do AI Foundry.
+
+![Chat Playground](assets/img/screenshot_playground.png)
+
+1. Adicione seus dados conectando no índice do Azure AI Search
+2. Especifique o contexto (prompt inicial) que delimita como e o quê o agente pode responder
+3. Faça o deploy da aplicação
+
+### Deploy
+
+Escolha o deploy para o Web App
+
+![Deploy](assets/img/screenshot_deploy.png)
+
+Crie um novo Web App com as informações desejadas. O Web App vai incorrer em novos custos, então leve isso em consideração.
+
+
+![Web App](assets/img/screenshot_webapp.png)
+
+
+
+## Links Úteis
+
+- [Repositório do chatbot](https://github.com/microsoft/sample-app-aoai-chatGPT) ![Web App](assets/img/screenshot_webapp.png =150x)
+
