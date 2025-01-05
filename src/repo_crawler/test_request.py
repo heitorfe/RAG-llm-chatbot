@@ -1,6 +1,6 @@
 import requests
 
-url = 'http://localhost:7071/api/HTTPSync'
+url = 'http://localhost:7071/api/CreateCrawlerJobs'
 
 data = {"repo_name" : "MicrosoftDocs/azure-docs", "container" : "public", "include_dirs" : "['articles/azure-functions']" }
 
