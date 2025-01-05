@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.' # set this to the path to your web app project, defaults to the repository root
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'src/repo_crawler' # set this to the path to your web app project, defaults to the repository root
   PYTHON_VERSION: '3.11' # set this to the python version to use (supports 3.6, 3.7, 3.8)
   FUNCTIONS_WORKER_RUNTIME: "python"
   GITHUB_REPO: "MicrosoftDocs/azure-docs"
@@ -74,7 +74,7 @@ jobs:
         with:
           app-name: 'hfo-repo-crawler-test'
           slot-name: 'Production'
-          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          package: '.'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DCD828CFEC0B41AD838856F606530675 }}
         env:
             FUNCTIONS_WORKER_RUNTIME: ${{ env.FUNCTIONS_WORKER_RUNTIME }}
