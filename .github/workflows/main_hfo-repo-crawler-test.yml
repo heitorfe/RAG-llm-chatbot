@@ -13,6 +13,11 @@ on:
 env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: './src/repo_crawler' # set this to the path to your web app project, defaults to the repository root
   PYTHON_VERSION: '3.11' # set this to the python version to use (supports 3.6, 3.7, 3.8)
+  FUNCTIONS_WORKER_RUNTIME: "python"
+  GITHUB_REPO: "MicrosoftDocs/azure-docs"
+  AZURE_STORAGE_CONTAINER: "rag_data"
+  FOLDERS_TO_INCLUDE: "['articles/azure-functions']"
+  DAYS_AGO : "3"
 
 jobs:
   build:
@@ -69,3 +74,10 @@ jobs:
           slot-name: 'Production'
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DCD828CFEC0B41AD838856F606530675 }}
+        env:
+            FUNCTIONS_WORKER_RUNTIME: ${{ env.FUNCTIONS_WORKER_RUNTIME }}
+            GITHUB_REPO: ${{ env.GITHUB_REPO }}
+            AZURE_STORAGE_CONTAINER: ${{ env.AZURE_STORAGE_CONTAINER }}
+            FOLDERS_TO_INCLUDE: ${{ env.FOLDERS_TO_INCLUDE }}
+            DAYS_AGO: ${{ env.DAYS_AGO }}
+            GITHUB_TOKEN: ${{ secrets.TOKEN }}

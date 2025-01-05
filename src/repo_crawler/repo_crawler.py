@@ -13,7 +13,7 @@ class RepoCrawler:
         self.container = container
         self.include_dirs = include_dirs
         self.github_repo_url = f"https://github.com/{self.repo_name}"
-        self.azure_storage_connection_string = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
+        self.azure_storage_connection_string = os.getenv("AzureWebJobsStorage")
         self.github_api_url = f"https://api.github.com/repos/{self.repo_name}/contents/"
         self.headers = {'Accept': 'application/vnd.github.v3+json'}
 
