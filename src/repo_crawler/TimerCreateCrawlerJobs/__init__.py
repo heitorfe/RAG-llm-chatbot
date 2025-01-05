@@ -10,7 +10,7 @@ def main(mytimer: func.TimerRequest) -> None:
 
     repo_name = os.getenv('GITHUB_REPO')
     container = os.getenv('AZURE_STORAGE_CONTAINER')
-    include_dirs = os.getenv('FOLDERS_TO_INCLUDE')
+    include_dirs = eval(os.getenv('FOLDERS_TO_INCLUDE'))
 
     if not repo_name or not container or not include_dirs:
         logging.error("Missing environment variables")
