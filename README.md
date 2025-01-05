@@ -3,7 +3,7 @@ Este projeto visa criar um crawler para ingestão de dados da documentação do 
 
 ## Objetivo do Projeto
 
-Automatizar a ingestão de dados de repositórios do GitHub, especificamente da documentação do Azure, e armazená-los no Azure Blob Storage. Além disso, implementar recursos de IA no Azure, como Azure Cognitive Search e Azure OpenAI, para processar e analisar os dados ingeridos.
+O objetivo deste projeto é automatizar a ingestão de dados de repositórios do GitHub, especificamente da documentação do Azure, e armazená-los no Azure Blob Storage. Além disso, o projeto implementa recursos de IA no Azure, como Azure AI Search e Azure OpenAI, para processar e analisar os dados ingeridos.
 
 ## Estrutura do Projeto
 
