@@ -1,6 +1,6 @@
 import os
 import requests
-from azure.storage.blob import BlobServiceClient, ContainerClient
+from azure.storage.blob import BlobServiceClient
 from dotenv import load_dotenv
 from typing import List
 from datetime import datetime, timedelta

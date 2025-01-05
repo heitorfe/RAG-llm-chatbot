@@ -1,4 +1,4 @@
-gitpython
+requests
 azure-storage-blob
 python-dotenv
 azure-storage-queue
