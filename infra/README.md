@@ -58,3 +58,33 @@ AZURE_OPENAI_KEY=<SUA_CHAVE>
 # Conta de Armazenamento do Azure
 AZURE_STORAGE_CONNECTION=DefaultEndpointsProtocol=https;AccountName=<NOME_DA_CONTA>;AccountKey=<SUA_CHAVE>;EndpointSuffix=core.windows.net
 
+## Configuração do AI Search
+
+### Passos para Configuração do AI Search
+
+1. Crie um ambiente virtual Python:
+  ```sh
+  python -m venv venv
+  ```
+
+2. Ative o ambiente virtual:
+  - No Windows:
+    ```sh
+    .\venv\Scripts\activate
+    ```
+  - No macOS/Linux:
+    ```sh
+    source venv/bin/activate
+    ```
+
+3. Instale as dependências necessárias:
+  ```sh
+  pip install -r requirements.txt
+  ```
+
+4. Após preencher o arquivo `.env`, execute o script Python para configurar o AI Search:
+  ```sh
+  python search_config.py
+  ```
+
+5. Verifique se a configuração foi bem-sucedida acessando o portal do Azure e validando os recursos criados.
