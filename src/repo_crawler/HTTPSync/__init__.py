@@ -27,7 +27,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     try:
         crawler = RepoCrawler(repo_name, container, include_dirs)
-        crawler.run()
+        crawler.full_ingestion()
         return func.HttpResponse(
             "Ingestion completed successfully",
             status_code=200

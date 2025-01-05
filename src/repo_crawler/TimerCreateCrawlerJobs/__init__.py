@@ -8,8 +8,8 @@ import base64
 def main(mytimer: func.TimerRequest) -> None:
     logging.info('TimerCreateCrawlerJobs function triggered.')
 
-    repo_name = os.getenv('REPO_NAME')
-    container = os.getenv('CONTAINER')
+    repo_name = os.getenv('GITHUB_REPO')
+    container = os.getenv('AZURE_STORAGE_CONTAINER')
     include_dirs = os.getenv('FOLDERS_TO_INCLUDE')
 
     if not repo_name or not container or not include_dirs:

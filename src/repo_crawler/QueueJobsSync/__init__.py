@@ -16,4 +16,4 @@ def main(msg: func.QueueMessage) -> None:
         return
 
     crawler = RepoCrawler(repo_name, container, [directory])
-    crawler.run()
+    crawler.full_ingestion()
