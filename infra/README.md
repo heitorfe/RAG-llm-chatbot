@@ -84,7 +84,7 @@ AZURE_STORAGE_CONNECTION=DefaultEndpointsProtocol=https;AccountName=<NOME_DA_CON
 
 4. Após preencher o arquivo `.env`, execute o script Python para configurar o AI Search:
   ```sh
-  python search_config.py
+  python config/search_config.py
   ```
 
 5. Verifique se a configuração foi bem-sucedida acessando o portal do Azure e validando os recursos criados.
