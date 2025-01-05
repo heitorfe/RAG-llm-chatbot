@@ -1,0 +1,3 @@
+gitpython
+azure-storage-blob
+python-dotenv
