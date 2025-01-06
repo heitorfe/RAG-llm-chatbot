@@ -131,5 +131,5 @@ Crie um novo Web App com as informações desejadas. O Web App vai incorrer em n
 
 ## Links Úteis
 
-- [Repositório do chatbot](https://github.com/microsoft/sample-app-aoai-chatGPT) ![Web App](assets/img/screenshot_webapp.png =150x)
+- [Repositório do chatbot](https://github.com/microsoft/sample-app-aoai-chatGPT)
 
