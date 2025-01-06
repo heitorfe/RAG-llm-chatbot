@@ -5,6 +5,15 @@ Este projeto visa criar um crawler para ingestão de dados da documentação do 
 
 O objetivo deste projeto é automatizar a ingestão de dados de repositórios do GitHub, especificamente da documentação do Azure, e armazená-los no Azure Blob Storage. Além disso, o projeto implementa recursos de IA no Azure, como Azure AI Search e Azure OpenAI, para processar e analisar os dados ingeridos.
 
+## O Chatbot
+
+O objetivo final do projeto é ter um chatbot especializado em determinado escopo. E o escopo é facilmente alterável, simplesmente sincronizando mais dados ao índice e alterando o contexto inicial do agente.
+
+Neste projeto, o agente é especializado em Azure Functions, e temos a disposição toda a documentação mais atualizada sobre o assunto no banco vetorial para embasar as respostas da LLM.
+
+![alt text](assets/img/screenshot_chat.png)
+
+
 ## Estrutura do Projeto
 
 O projeto está dividido em duas partes principais:
